@@ -8,7 +8,7 @@ import 'package:e_learningapp/widgets/catogoryitem.dart';
 final theme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-        seedColor: Color.fromARGB(229, 255, 0, 72),
+        seedColor: Color.fromARGB(255, 255, 255, 255),
         brightness: Brightness.dark),
     textTheme: GoogleFonts.latoTextTheme());
 

@@ -20,14 +20,14 @@ class CatogaryGridItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(colors: [
               catogory.color.withOpacity(1),
-              catogory.color.withOpacity(0.5)
+              catogory.color.withOpacity(0.1)
             ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: Text(
           catogory.title,
           style: Theme.of(context)
               .textTheme
               .titleLarge!
-              .copyWith(color: Theme.of(context).colorScheme.onBackground),
+              .copyWith(color: Color.fromARGB(255, 0, 251, 255)),
         ),
       ),
     );
