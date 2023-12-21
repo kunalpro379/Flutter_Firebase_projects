@@ -1,5 +1,6 @@
 import 'package:e_learningapp/catogories.dart';
 import 'package:e_learningapp/data/dummy_data.dart';
+import 'package:e_learningapp/screens/Tabs.dart';
 import 'package:e_learningapp/screens/meals.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Flutter Demo', home: CateogoryScreen()
+    return MaterialApp(title: 'Flutter Demo', home: TabScreen()
         //MealScreen(title: "Some Category ... ", meals: dummyMeals),
         );
   }

@@ -14,29 +14,24 @@ final theme = ThemeData(
     textTheme: GoogleFonts.latoTextTheme());
 
 class CateogoryScreen extends StatelessWidget {
-  const CateogoryScreen({super.key});
+  const CateogoryScreen({super.key, required this.onToggleFavourite});
+  final void Function(Meal meal) onToggleFavourite;
 
   void _selectCategory(BuildContext context, Catogory catogory) {
     final filtermeals = dummyMeals
         .where((meal) => meal.categories.contains(catogory.id))
         .toList();
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (ctx) =>
-            MealScreen(title: catogory.title, meals: filtermeals)));
+        builder: (ctx) => MealScreen(
+              title: catogory.title,
+              meals: filtermeals,
+              onToggleFavourite: onToggleFavourite,
+            )));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Pick Yuor Category",
-          style: TextStyle(
-              fontWeight: FontWeight.w800,
-              color: Color.fromARGB(255, 255, 255, 255)),
-        ),
-        backgroundColor: Color.fromARGB(255, 134, 0, 0),
-      ),
       backgroundColor: Color.fromARGB(255, 0, 0, 0),
       body: GridView(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
