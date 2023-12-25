@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list_app/data/dummy_items.dart';
-import 'package:shopping_list_app/models/grocery_item.dart';
-import 'package:shopping_list_app/widgets/newItem.dart';
+
+import 'package:shoppinglistapp/widgets/newItem.dart';
+import 'package:shoppinglistapp/data/dummy_items.dart';
 
 class GroceryList extends StatefulWidget {
   const GroceryList({super.key});

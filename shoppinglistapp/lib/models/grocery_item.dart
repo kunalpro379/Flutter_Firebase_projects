@@ -1,5 +1,4 @@
-import 'package:shopping_list_app/models/category.dart';
-import 'package:shopping_list_app/models/category.dart';
+import 'package:shoppinglistapp/models/category.dart';
 
 class GroceryItem {
   GroceryItem(

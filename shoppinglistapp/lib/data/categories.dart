@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list_app/models/category.dart'; // Import your custom Category and Categories
-import 'package:shopping_list_app/data/categories.dart'; // Import your custom Categories enum
-import 'package:shopping_list_app/models/grocery_item.dart';
+
+import 'package:shoppinglistapp/models/category.dart';
 
 final categories = {
   Categories.vegetables: Category(

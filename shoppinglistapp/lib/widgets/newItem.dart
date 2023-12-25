@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list_app/data/categories.dart';
-import 'package:shopping_list_app/models/category.dart';
+
+import 'package:shoppinglistapp/models/category.dart';
+
+import 'package:shoppinglistapp/data/categories.dart';
 
 class NewItem extends StatefulWidget {
   const NewItem({Key? key}) : super(key: key);
@@ -10,17 +12,12 @@ class NewItem extends StatefulWidget {
 }
 
 class _NewItemState extends State<NewItem> {
-  // Add a controller for the text field
   final TextEditingController _nameController = TextEditingController();
 
-  // Add a variable to store the selected category
   Category? _selectedCategory;
-
-  // Function to handle adding an item
-  void _addItem() {
-    // Implement the logic to add the item
-    // You can use _nameController.text to get the item name
-    // and _selectedCategory to get the selected category
+  void addItem(contex) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (ctx) => const NewItem()));
   }
 
   @override
@@ -30,7 +27,9 @@ class _NewItemState extends State<NewItem> {
         title: const Text("Add a new Item"),
         actions: [
           IconButton(
-            onPressed: _addItem,
+            onPressed: () {
+              addItem(context);
+            },
             icon: const Icon(Icons.add),
           ),
         ],

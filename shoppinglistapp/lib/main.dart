@@ -1,6 +1,13 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
-import 'package:shopping_list_app/data/dummy_items.dart';
-import 'package:shopping_list_app/widgets/grocery_list.dart';
+
+import 'package:shoppinglistapp/models/grocery_item.dart';
+import 'package:shoppinglistapp/models/category.dart';
+import 'package:shoppinglistapp/widgets/newItem.dart';
+import 'package:shoppinglistapp/data/categories.dart';
+import 'package:shoppinglistapp/widgets/grocery_list.dart';
+import 'package:shoppinglistapp/data/dummy_items.dart';
 
 void main() {
   runApp(const MyApp());

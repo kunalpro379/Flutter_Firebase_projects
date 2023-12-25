@@ -1,6 +1,8 @@
-import 'package:shopping_list_app/models/category.dart';
-import 'package:shopping_list_app/data/categories.dart';
-import 'package:shopping_list_app/models/grocery_item.dart';
+import 'package:flutter/material.dart';
+
+import 'package:shoppinglistapp/models/grocery_item.dart';
+import 'package:shoppinglistapp/models/category.dart';
+import 'package:shoppinglistapp/data/categories.dart';
 
 final List<GroceryItem> groceryItemsList = [
   GroceryItem(
