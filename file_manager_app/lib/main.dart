@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Text(
                     FileManager.basename(entity, showFileExtension: true),
                   ),
+                  subtitle: subTitle(entity),
                   onTap: () {
                     if (FileManager.isDirectory(entity)) {
                       controller.openDirectory(entity);
@@ -92,8 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
         IconButton(
             onPressed: () => createFolder(context),
             icon: Icon(Icons.create_new_folder_outlined)),
-        IconButton(onPressed: () {}, icon: Icon(Icons.sort_rounded)),
-        IconButton(onPressed: () {}, icon: Icon(Icons.sd_storage_rounded))
+        IconButton(
+            onPressed: () => sort(context), icon: Icon(Icons.sort_rounded)),
+        IconButton(
+            onPressed: () => SelectStorage(context),
+            icon: Icon(Icons.sd_storage_rounded))
       ],
       title: ValueListenableBuilder(
         valueListenable: controller.titleNotifier,
@@ -111,39 +115,48 @@ class _MyHomePageState extends State<MyHomePage> {
 
   createFolder(BuildContext context) async {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          var folderCreate = TextEditingController();
-          return Dialog(
-            child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                    title: TextField(
-                      controller: folderCreate,
-                    ),
+      context: context,
+      builder: (BuildContext context) {
+        var folderCreate = TextEditingController();
+        return Dialog(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  title: TextField(
+                    controller: folderCreate,
+                    decoration: InputDecoration(labelText: 'Folder Name'),
                   ),
-                  ElevatedButton(
-                      onPressed: () async {
-                        try {
-                          await FileManager.createFolder(
-                              controller.getCurrentPath, folderCreate.text);
-                          controller.setCurrentPath =
-                              controller.getCurrentPath +
-                                  "/" +
-                                  folderCreate.text;
-                        } catch (e) {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text("Create Folders"))
-                ],
-              ),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      String currentPath = controller.getCurrentPath;
+
+                      String newFolderPath =
+                          currentPath + '/' + folderCreate.text;
+
+                      Directory(newFolderPath).createSync();
+
+                      controller.openDirectory(
+                          Directory(newFolderPath)); // Pass Directory object
+
+                      Navigator.pop(context);
+                    } catch (e) {
+                      print('Error creating folder: $e');
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: Text("Create Folder"),
+                ),
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   sort(BuildContext context) async {
@@ -161,24 +174,28 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: Text("Name"),
                     onTap: () {
                       controller.sortBy(SortBy.name);
+                      Navigator.pop(context);
                     },
                   ),
                   ListTile(
                     title: Text("Size"),
                     onTap: () {
                       controller.sortBy(SortBy.size);
+                      Navigator.pop(context);
                     },
                   ),
                   ListTile(
                     title: Text("Date"),
                     onTap: () {
                       controller.sortBy(SortBy.date);
+                      Navigator.pop(context);
                     },
                   ),
                   ListTile(
                     title: Text("type"),
                     onTap: () {
                       controller.sortBy(SortBy.type);
+                      Navigator.pop(context);
                     },
                   )
                 ],
@@ -186,5 +203,50 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           );
         });
+  }
+
+  SelectStorage(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: FutureBuilder<List<Directory>>(
+            future: FileManager.getStorageList(),
+            builder: (context, snapshot) {
+              final List<FileSystemEntity> storageList = snapshot.data!;
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: storageList
+                    .map((e) => ListTile(
+                          title: Text("${FileManager.basename(e)}"),
+                          onTap: () {
+                            controller.openDirectory(e);
+                            Navigator.pop(context);
+                          },
+                        ))
+                    .toList(),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  subTitle(FileSystemEntity entity) {
+    return FutureBuilder(
+      future: entity.stat(),
+      builder: (BuildContext context, AsyncSnapshot<FileStat> snapshot) {
+        if (snapshot.hasData) {
+          if (entity is File) {
+            int size = snapshot.data!.size;
+            return Text("${FileManager.formatBytes(size)}");
+          }
+          return Text("${snapshot.data!.modified}");
+        } else {
+          return Text(" _ ");
+        }
+      },
+    );
   }
 }
