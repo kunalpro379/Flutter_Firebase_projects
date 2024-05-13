@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "424845692891",
+    "project_id": "firechatapp-f09c8",
+    "storage_bucket": "firechatapp-f09c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424845692891:android:2cc9bac2e68767ce6721fe",
+        "android_client_info": {
+          "package_name": "com.example.talkygram"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAht__grXga9a31395QR8oxekdC0VHXvS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
